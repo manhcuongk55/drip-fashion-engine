@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DRIP — AI Fashion Trend Engine</title>
+<meta name="description" content="Detect TikTok trends → AI designs → Vietnam factory → 48h production">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-grid">
+
+<!-- ── NAV ──────────────────────────────────────────────── -->
+<nav class="nav">
+  <a class="nav-logo" href="#" onclick="showPage('radar')"><span>DRIP</span></a>
+  <div class="nav-links">
+    <button class="nav-link active" id="nav-radar" onclick="showPage('radar')">🎯 Trend Radar</button>
+    <button class="nav-link" id="nav-studio" onclick="showPage('studio')">✨ Design Studio</button>
+    <button class="nav-link" id="nav-factory" onclick="showPage('factory')">🏭 Factory Network</button>
+    <button class="nav-link" id="nav-orders" onclick="showPage('orders')">📦 Orders</button>
+    <button class="nav-link" id="nav-feed" onclick="showPage('feed')">🌟 Creator Feed</button>
+    <button class="nav-link" id="nav-analytics" onclick="showPage('analytics')">📊 Analytics</button>
+    <button class="nav-link" id="nav-upload" onclick="showPage('upload')">⬆️ Upload Drop</button>
+  </div>
+  <button class="nav-cta" onclick="showPage('studio')">+ New Drop</button>
+</nav>
+
+<!-- ── PAGE: TREND RADAR ──────────────────────────────── -->
+<div class="page active" id="page-radar">
+
+  <!-- HERO -->
+  <section class="section" style="padding-top:60px;position:relative;overflow:hidden">
+    <div class="radial-glow" style="width:600px;height:600px;background:rgba(110,0,255,0.15);top:-200px;left:-100px"></div>
+    <div class="radial-glow" style="width:400px;height:400px;background:rgba(255,0,122,0.1);top:0;right:-100px"></div>
+    <div class="container" style="position:relative;z-index:1">
+      <div class="eyebrow">🔴 Live — 2,847 videos scanned</div>
+      <h1>Trend <span class="gradient-text">Radar</span></h1>
+      <p style="font-size:18px;color:var(--text-secondary);max-width:560px;margin:16px 0 40px">
+        AI scans TikTok & Instagram every 60 seconds. When a look goes viral — DRIP catches it first.
+      </p>
+      <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+        <div class="badge badge-green"><span class="pulse-dot"></span> LIVE SCANNING</div>
+        <div class="badge badge-purple">Updated 12s ago</div>
+        <div class="badge badge-pink">🔥 38 new trends today</div>
+      </div>
+
+      <!-- Pipeline overview -->
+      <div class="card" style="margin-top:48px;padding:32px">
+        <div class="pipeline">
+          <div class="pipeline-step">
+            <div class="step-icon active">📹</div>
+            <div style="font-size:13px;font-weight:600">Detect Trend</div>
+            <div style="font-size:11px;color:var(--text-muted);margin-top:4px">TikTok · IG · Pinterest</div>
+          </div>
+          <div class="pipeline-step">
+            <div class="step-icon active">🤖</div>
+            <div style="font-size:13px;font-weight:600">AI Analysis</div>
+            <div style="font-size:11px;color:var(--text-muted);margin-top:4px">Vision + NLP</div>
+          </div>
+          <div class="pipeline-step">
+            <div class="step-icon active">✏️</div>
+            <div style="font-size:13px;font-weight:600">Auto Design</div>
+            <div style="font-size:11px;color:var(--text-muted);margin-top:4px">Gen AI brief</div>
+          </div>
+          <div class="pipeline-step">
+            <div class="step-icon">🏭</div>
+            <div style="font-size:13px;font-weight:600">Local Factory</div>
+            <div style="font-size:11px;color:var(--text-muted);margin-top:4px">Vietnam network</div>
+          </div>
+          <div class="pipeline-step">
+            <div class="step-icon">🚀</div>
+            <div style="font-size:13px;font-weight:600">Ship in 48h</div>
+            <div style="font-size:11px;color:var(--text-muted);margin-top:4px">Direct to buyer</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FILTER BAR -->
+  <section style="padding:0 0 24px">
+    <div class="container">
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <span style="font-size:13px;color:var(--text-muted);margin-right:4px">Filter:</span>
+        <span class="tag active" onclick="filterToggle(this)">All</span>
+        <span class="tag" onclick="filterToggle(this)">Streetwear</span>
+        <span class="tag" onclick="filterToggle(this)">K-Fashion</span>
+        <span class="tag" onclick="filterToggle(this)">Minimalist</span>
+        <span class="tag" onclick="filterToggle(this)">Y2K</span>
+        <span class="tag" onclick="filterToggle(this)">Cottagecore</span>
+        <span class="tag" onclick="filterToggle(this)">Techwear</span>
+        <span class="tag" onclick="filterToggle(this)">Vietnamese</span>
+        <div style="margin-left:auto;display:flex;gap:8px">
+          <select style="background:var(--bg-card);border:1px solid var(--border);color:var(--text-primary);padding:8px 12px;border-radius:var(--radius-sm);font-family:var(--font-sans);font-size:13px;cursor:pointer">
+            <option>🔥 Hottest first</option>
+            <option>⚡ Rising fast</option>
+            <option>🆕 Newest</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS ROW -->
+  <section style="padding:0 0 48px">
+    <div class="container">
+      <div class="grid-4">
+        <div class="card" style="text-align:center;padding:20px 16px">
+          <div class="stat-value">2,847</div>
+          <div class="stat-label">Videos scanned today</div>
+        </div>
+        <div class="card" style="text-align:center;padding:20px 16px">
+          <div class="stat-value">38</div>
+          <div class="stat-label">New trends detected</div>
+        </div>
+        <div class="card" style="text-align:center;padding:20px 16px">
+          <div class="stat-value">12</div>
+          <div class="stat-label">In production now</div>
+        </div>
+        <div class="card" style="text-align:center;padding:20px 16px">
+          <div class="stat-value">48h</div>
+          <div class="stat-label">Avg. time-to-market</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TREND CARDS GRID -->
+  <section style="padding:0 0 80px">
+    <div class="container">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px">
+        <h2 style="font-size:24px">🔥 Trending Now</h2>
+        <span style="font-size:13px;color:var(--text-muted)">Refreshes every 60s</span>
+      </div>
+      <div id="trend-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:20px">
+        <!-- JS populated -->
+      </div>
+    </div>
+  </section>
+
+</div><!-- /page-radar -->
+
+<!-- ── PAGE: DESIGN STUDIO ────────────────────────────── -->
+<div class="page" id="page-studio">
+  <section class="section" style="padding-top:60px">
+    <div class="container">
+      <div class="eyebrow">✨ AI-Powered</div>
+      <h1>Design <span class="gradient-text">Studio</span></h1>
+      <p style="font-size:17px;color:var(--text-secondary);margin:12px 0 48px;max-width:520px">
+        Paste a TikTok link or describe a trend — DRIP's AI generates a production-ready design brief instantly.
+      </p>
+
+      <div class="grid-2" style="gap:32px;align-items:start">
+
+        <!-- LEFT: Input -->
+        <div style="display:flex;flex-direction:column;gap:20px">
+
+          <!-- URL input -->
+          <div class="card">
+            <label style="font-size:13px;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:10px">📹 TikTok / Instagram URL</label>
+            <div style="display:flex;gap:10px">
+              <input id="trend-url" type="text" placeholder="https://tiktok.com/@user/video/..." 
+                style="flex:1;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 16px;color:var(--text-primary);font-family:var(--font-sans);font-size:14px;outline:none;transition:var(--transition)"
+                onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'">
+              <button class="btn btn-primary" onclick="analyzeURL()">Analyze</button>
+            </div>
+          </div>
+
+          <!-- OR describe -->
+          <div class="card">
+            <label style="font-size:13px;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:10px">💬 Or describe the trend</label>
+            <textarea id="trend-desc" rows="4" placeholder="e.g. Oversized beige blazer, silk cami underneath, wide-leg trousers — minimal luxury aesthetic..."
+              style="width:100%;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 16px;color:var(--text-primary);font-family:var(--font-sans);font-size:14px;outline:none;resize:vertical;transition:var(--transition)"
+              onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'"></textarea>
+
+            <!-- Style chips -->
+            <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:12px">
+              <span style="font-size:12px;color:var(--text-muted);align-self:center">Quick-add:</span>
+              <span class="tag" onclick="addStyle(this,'minimalist')">Minimalist</span>
+              <span class="tag" onclick="addStyle(this,'streetwear')">Streetwear</span>
+              <span class="tag" onclick="addStyle(this,'K-fashion')">K-Fashion</span>
+              <span class="tag" onclick="addStyle(this,'Y2K')">Y2K</span>
+              <span class="tag" onclick="addStyle(this,'oversized')">Oversized</span>
+              <span class="tag" onclick="addStyle(this,'monochrome')">Monochrome</span>
+            </div>
+          </div>
+
+          <!-- Budget & Qty -->
+          <div class="card">
+            <label style="font-size:13px;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:14px">⚙️ Production Settings</label>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+              <div>
+                <div style="font-size:12px;color:var(--text-muted);margin-bottom:6px">Batch quantity</div>
+                <select id="qty" style="width:100%;background:rgba(255,255,255,0.04);border:1px solid var(--border);color:var(--text-primary);padding:10px 12px;border-radius:var(--radius-sm);font-family:var(--font-sans);font-size:14px">
+                  <option>50 pcs (test)</option>
+                  <option>100 pcs</option>
+                  <option>200 pcs</option>
+                  <option>500 pcs</option>
+                </select>
+              </div>
+              <div>
+                <div style="font-size:12px;color:var(--text-muted);margin-bottom:6px">Target price/unit</div>
+                <select id="budget" style="width:100%;background:rgba(255,255,255,0.04);border:1px solid var(--border);color:var(--text-primary);padding:10px 12px;border-radius:var(--radius-sm);font-family:var(--font-sans);font-size:14px">
+                  <option>Under 150k VND</option>
+                  <option>150–300k VND</option>
+                  <option>300–500k VND</option>
+                  <option>500k+ VND</option>
+                </select>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-top:16px;padding-top:16px;border-top:1px solid var(--border)">
+              <div>
+                <div style="font-size:13px;font-weight:600">Rush production (24h)</div>
+                <div style="font-size:12px;color:var(--text-muted)">+30% premium</div>
+              </div>
+              <div class="toggle" id="rush-toggle" onclick="toggleRush(this)">
+                <div class="toggle-knob"></div>
+              </div>
+            </div>
+          </div>
+
+          <button class="btn btn-primary btn-lg" style="width:100%;justify-content:center" onclick="generateDesign()">
+            <span id="gen-btn-text">✨ Generate Design Brief</span>
+          </button>
+        </div>
+
+        <!-- RIGHT: Output -->
+        <div id="studio-output" style="display:flex;flex-direction:column;gap:20px">
+          <div class="card" style="text-align:center;padding:60px 24px;border-style:dashed">
+            <div style="font-size:48px;margin-bottom:16px">🎨</div>
+            <div style="font-weight:600;margin-bottom:8px">Design brief appears here</div>
+            <div style="font-size:14px;color:var(--text-muted)">Paste a URL or describe a trend and hit Generate</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</div><!-- /page-studio -->
+
+<!-- ── PAGE: FACTORY NETWORK ──────────────────────────── -->
+<div class="page" id="page-factory">
+  <section class="section" style="padding-top:60px">
+    <div class="container">
+      <div class="eyebrow">🏭 Vietnam Network</div>
+      <h1>Factory <span class="gradient-text">Network</span></h1>
+      <p style="font-size:17px;color:var(--text-secondary);margin:12px 0 48px;max-width:520px">
+        127 verified local factories connected. Real-time capacity, lead times, and specializations.
+      </p>
+
+      <!-- Stats -->
+      <div class="grid-4" style="margin-bottom:48px">
+        <div class="card" style="text-align:center;padding:20px">
+          <div class="stat-value">127</div>
+          <div class="stat-label">Verified factories</div>
+        </div>
+        <div class="card" style="text-align:center;padding:20px">
+          <div class="stat-value">94%</div>
+          <div class="stat-label">On-time rate</div>
+        </div>
+        <div class="card" style="text-align:center;padding:20px">
+          <div class="stat-value">48h</div>
+          <div class="stat-label">Fastest turnaround</div>
+        </div>
+        <div class="card" style="text-align:center;padding:20px">
+          <div class="stat-value">12</div>
+          <div class="stat-label">Cities covered</div>
+        </div>
+      </div>
+
+      <!-- Factory list -->
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+        <h2 style="font-size:22px">Available Factories</h2>
+        <div style="display:flex;gap:8px">
+          <span class="tag active">All</span>
+          <span class="tag">Woven</span>
+          <span class="tag">Knitwear</span>
+          <span class="tag">Denim</span>
+          <span class="tag">Activewear</span>
+        </div>
+      </div>
+      <div id="factory-list" style="display:flex;flex-direction:column;gap:16px">
+        <!-- JS populated -->
+      </div>
+    </div>
+  </section>
+</div><!-- /page-factory -->
+
+<!-- ── PAGE: ORDERS ───────────────────────────────────── -->
+<div class="page" id="page-orders">
+  <section class="section" style="padding-top:60px">
+    <div class="container">
+      <div class="eyebrow">📦 Live Tracking</div>
+      <h1>Active <span class="gradient-text">Orders</span></h1>
+      <p style="font-size:17px;color:var(--text-secondary);margin:12px 0 48px;max-width:520px">
+        Real-time view of every drop from design approval to delivery.
+      </p>
+      <div id="orders-list" style="display:flex;flex-direction:column;gap:20px">
+        <!-- JS populated -->
+      </div>
+    </div>
+  </section>
+</div><!-- /page-orders -->
+
+<!-- ── PAGE: INFLUENCER FEED ────────────────────────── -->
+<div class="page" id="page-feed">
+  <section class="section" style="padding-top:60px">
+    <div class="container">
+
+      <!-- Header -->
+      <div class="eyebrow">🌟 Social Discovery</div>
+      <h1>Creator <span class="gradient-text">Feed</span></h1>
+      <p style="font-size:17px;color:var(--text-secondary);margin:12px 0 36px;max-width:520px">
+        Influencers drop, followers buy. Real DRIP drops live on the feed — from trend to shelf in 48h.
+      </p>
+
+      <!-- Live bar -->
+      <div style="display:flex;align-items:center;gap:12px;padding:14px 20px;background:rgba(255,0,122,0.06);border:1px solid rgba(255,0,122,0.15);border-radius:var(--radius-md);margin-bottom:36px;flex-wrap:wrap">
+        <div class="badge badge-red"><span class="pulse-dot"></span> LIVE</div>
+        <span style="font-size:14px">3 drops launching in the next hour — <strong style="color:var(--neon-pink)">set alerts</strong></span>
+        <div style="margin-left:auto;display:flex;gap:8px">
+          <span class="badge badge-purple">👥 12.4k creators</span>
+          <span class="badge badge-cyan">🛒 840 sales today</span>
+        </div>
+      </div>
+
+      <!-- Category filter -->
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px">
+        <span class="tag active" onclick="filterFeed(this,'all')">All</span>
+        <span class="tag" onclick="filterFeed(this,'streetwear')">Streetwear</span>
+        <span class="tag" onclick="filterFeed(this,'kfashion')">K-Fashion</span>
+        <span class="tag" onclick="filterFeed(this,'minimal')">Minimalist</span>
+        <span class="tag" onclick="filterFeed(this,'viet')">🇻🇳 Vietnamese</span>
+        <span class="tag" onclick="filterFeed(this,'y2k')">Y2K</span>
+        <div style="margin-left:auto">
+          <select id="feed-sort" onchange="renderFeed()" style="background:var(--bg-card);border:1px solid var(--border);color:var(--text-primary);padding:8px 12px;border-radius:var(--radius-sm);font-family:var(--font-sans);font-size:13px;cursor:pointer">
+            <option>🔥 Trending</option>
+            <option>⚡ New drops</option>
+            <option>💰 Best selling</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Feed layout: masonry-style 3 col -->
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px" id="feed-grid">
+        <!-- JS populated -->
+      </div>
+
+      <!-- Top Creators sidebar row -->
+      <div style="margin-top:56px">
+        <h2 style="font-size:22px;margin-bottom:20px">🏆 Top Creators This Week</h2>
+        <div id="creators-row" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px">
+          <!-- JS populated -->
+        </div>
+      </div>
+
+    </div>
+  </section>
+</div><!-- /page-feed -->
+
+<!-- ── PAGE: ANALYTICS ──────────────────────────────── -->
+<div class="page" id="page-analytics">
+  <section class="section" style="padding-top:60px">
+    <div class="container">
+      <div class="eyebrow">📊 Real-time Intel</div>
+      <h1>Drop <span class="gradient-text">Analytics</span></h1>
+      <p style="font-size:17px;color:var(--text-secondary);margin:12px 0 40px;max-width:520px">Revenue, sell-through, trend prediction accuracy — all in one control tower.</p>
+
+      <!-- KPI Row -->
+      <div class="grid-4" style="margin-bottom:40px" id="kpi-row"></div>
+
+      <!-- Charts row -->
+      <div class="grid-2" style="margin-bottom:40px">
+        <div class="card">
+          <div style="font-weight:600;margin-bottom:4px">Revenue / Day (VND M)</div>
+          <div style="font-size:12px;color:var(--text-muted);margin-bottom:16px">Last 7 days</div>
+          <div class="bar-chart" id="rev-chart"></div>
+          <div style="display:flex;justify-content:space-between;margin-top:6px">
+            <span id="rev-labels" style="display:contents"></span>
+          </div>
+        </div>
+        <div class="card">
+          <div style="font-weight:600;margin-bottom:4px">Trend Detection Accuracy</div>
+          <div style="font-size:12px;color:var(--text-muted);margin-bottom:16px">AI vs actual sales correlation</div>
+          <div class="bar-chart" id="acc-chart"></div>
+        </div>
+      </div>
+
+      <!-- Top drops table -->
+      <div class="card">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+          <div style="font-weight:600;font-size:18px">🔥 Top Performing Drops</div>
+          <select style="background:rgba(255,255,255,0.04);border:1px solid var(--border);color:var(--text-primary);padding:8px 12px;border-radius:var(--radius-sm);font-family:var(--font-sans);font-size:13px">
+            <option>This Week</option><option>This Month</option><option>All Time</option>
+          </select>
+        </div>
+        <div id="drops-table"></div>
+      </div>
+
+      <!-- Trend accuracy + category breakdown side by side -->
+      <div class="grid-2" style="margin-top:28px">
+        <div class="card">
+          <div style="font-weight:600;margin-bottom:16px">📱 Traffic Source</div>
+          <div id="traffic-breakdown"></div>
+        </div>
+        <div class="card">
+          <div style="font-weight:600;margin-bottom:16px">👗 Category Revenue Split</div>
+          <div id="category-breakdown"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div><!-- /page-analytics -->
+
+<!-- ── PAGE: CREATOR UPLOAD ───────────────────────────── -->
+<div class="page" id="page-upload">
+  <section class="section" style="padding-top:60px">
+    <div class="container" style="max-width:760px">
+      <div class="eyebrow">⬆️ Creator Studio</div>
+      <h1>Upload Your <span class="gradient-text">Drop</span></h1>
+      <p style="font-size:17px;color:var(--text-secondary);margin:12px 0 40px;max-width:520px">From your TikTok video to factory-ready brief in one flow. DRIP handles the rest.</p>
+
+      <!-- Step indicator -->
+      <div style="display:flex;gap:0;margin-bottom:40px" id="upload-steps">
+        <div class="upload-step active" data-step="1" style="flex:1;text-align:center;padding:12px;background:rgba(110,0,255,0.12);border:1px solid var(--accent);border-right:none;border-radius:var(--radius-sm) 0 0 var(--radius-sm)">
+          <div style="font-size:11px;color:var(--accent);font-weight:700">STEP 1</div>
+          <div style="font-size:13px;font-weight:600">Your Look</div>
+        </div>
+        <div class="upload-step" data-step="2" style="flex:1;text-align:center;padding:12px;background:var(--bg-card);border:1px solid var(--border);border-right:none">
+          <div style="font-size:11px;color:var(--text-muted);font-weight:700">STEP 2</div>
+          <div style="font-size:13px;font-weight:600">Pricing</div>
+        </div>
+        <div class="upload-step" data-step="3" style="flex:1;text-align:center;padding:12px;background:var(--bg-card);border:1px solid var(--border);border-radius:0 var(--radius-sm) var(--radius-sm) 0">
+          <div style="font-size:11px;color:var(--text-muted);font-weight:700">STEP 3</div>
+          <div style="font-size:13px;font-weight:600">Launch</div>
+        </div>
+      </div>
+
+      <!-- Step panels -->
+      <div id="upload-panel-1" style="display:flex;flex-direction:column;gap:20px">
+        <!-- Video drop zone -->
+        <div class="card" id="drop-zone" style="border-style:dashed;padding:48px 24px;text-align:center;cursor:pointer;transition:var(--transition)" onclick="simulateUpload()" ondragover="this.style.borderColor='var(--accent)'" ondragleave="this.style.borderColor='var(--border)'">
+          <div style="font-size:48px;margin-bottom:16px">📹</div>
+          <div style="font-weight:600;font-size:17px;margin-bottom:8px">Drop your TikTok video here</div>
+          <div style="font-size:13px;color:var(--text-muted);margin-bottom:20px">or click to browse · MP4, MOV · max 500MB</div>
+          <div class="btn btn-secondary" style="display:inline-flex">Browse Files</div>
+        </div>
+
+        <!-- OR paste URL -->
+        <div style="display:flex;align-items:center;gap:12px">
+          <div style="flex:1;height:1px;background:var(--border)"></div>
+          <span style="font-size:12px;color:var(--text-muted)">OR</span>
+          <div style="flex:1;height:1px;background:var(--border)"></div>
+        </div>
+        <div class="card">
+          <label style="font-size:13px;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:10px">🔗 Paste TikTok / Instagram link</label>
+          <div style="display:flex;gap:10px">
+            <input id="upload-url" type="text" placeholder="https://tiktok.com/@you/video/..." style="flex:1;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 16px;color:var(--text-primary);font-family:var(--font-sans);font-size:14px;outline:none" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'">
+            <button class="btn btn-primary" onclick="simulateUpload()">Import</button>
+          </div>
+        </div>
+
+        <!-- Style & caption -->
+        <div class="card">
+          <label style="font-size:13px;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:10px">✍️ Caption (Vietnamese preferred 🇻🇳)</label>
+          <textarea id="upload-caption" rows="3" placeholder="Mô tả drop của bạn — vibe, chất liệu, phù hợp dịp nào..." style="width:100%;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 16px;color:var(--text-primary);font-family:var(--font-sans);font-size:14px;outline:none;resize:vertical" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'" oninput="updateCharCount(this)"></textarea>
+          <div style="text-align:right;font-size:11px;color:var(--text-muted);margin-top:4px" id="char-count">0 / 280</div>
+        </div>
+
+        <!-- Category + tags -->
+        <div class="card">
+          <label style="font-size:13px;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:12px">🏷️ Style Category</label>
+          <div style="display:flex;gap:8px;flex-wrap:wrap" id="style-selector">
+            <span class="tag" onclick="selectStyle(this,'Minimalist')">Minimalist</span>
+            <span class="tag" onclick="selectStyle(this,'Streetwear')">Streetwear</span>
+            <span class="tag" onclick="selectStyle(this,'K-Fashion')">K-Fashion</span>
+            <span class="tag" onclick="selectStyle(this,'Y2K')">Y2K</span>
+            <span class="tag" onclick="selectStyle(this,'Vietnamese')">🇻🇳 Vietnamese</span>
+            <span class="tag" onclick="selectStyle(this,'Techwear')">Techwear</span>
+            <span class="tag" onclick="selectStyle(this,'Cottagecore')">Cottagecore</span>
+          </div>
+        </div>
+
+        <button class="btn btn-primary btn-lg" style="width:100%;justify-content:center" onclick="goUploadStep(2)">Continue → Pricing</button>
+      </div>
+
+      <div id="upload-panel-2" style="display:none;flex-direction:column;gap:20px">
+        <div class="card">
+          <div style="font-weight:600;font-size:17px;margin-bottom:20px">💰 Pricing & Batch</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+            <div><div style="font-size:12px;color:var(--text-muted);margin-bottom:6px">Selling price (VND)</div>
+            <input id="sell-price" type="number" placeholder="350000" value="350000" style="width:100%;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px;color:var(--text-primary);font-family:var(--font-sans);font-size:14px;outline:none" oninput="calcMargin()"></div>
+            <div><div style="font-size:12px;color:var(--text-muted);margin-bottom:6px">Batch quantity</div>
+            <select id="batch-size" style="width:100%;background:rgba(255,255,255,0.04);border:1px solid var(--border);color:var(--text-primary);padding:12px;border-radius:var(--radius-sm);font-family:var(--font-sans);font-size:14px" onchange="calcMargin()">
+              <option value="50">50 pcs — test drop</option>
+              <option value="100" selected>100 pcs</option>
+              <option value="200">200 pcs</option>
+              <option value="500">500 pcs</option>
+            </select></div>
+            <div><div style="font-size:12px;color:var(--text-muted);margin-bottom:6px">Creator margin</div>
+            <select id="margin-pct" style="width:100%;background:rgba(255,255,255,0.04);border:1px solid var(--border);color:var(--text-primary);padding:12px;border-radius:var(--radius-sm);font-family:var(--font-sans);font-size:14px" onchange="calcMargin()">
+              <option value="20">20% commission</option>
+              <option value="25" selected>25% commission</option>
+              <option value="30">30% commission</option>
+            </select></div>
+            <div style="background:rgba(0,255,136,0.05);border:1px solid rgba(0,255,136,0.15);border-radius:var(--radius-sm);padding:12px">
+              <div style="font-size:11px;color:var(--text-muted);margin-bottom:2px">Your estimated earnings</div>
+              <div id="earn-calc" style="font-size:22px;font-weight:700;color:var(--neon-green)">8.75M VND</div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div style="font-weight:600;margin-bottom:12px">📅 Drop Timing</div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="btn btn-primary btn-sm" onclick="setTiming(this,'now')">🔴 Live now</button>
+            <button class="btn btn-secondary btn-sm" onclick="setTiming(this,'tonight')">🕘 Tonight 9PM</button>
+            <button class="btn btn-secondary btn-sm" onclick="setTiming(this,'tomorrow')">📆 Tomorrow 8PM</button>
+            <button class="btn btn-secondary btn-sm" onclick="setTiming(this,'weekend')">🎉 This weekend</button>
+          </div>
+        </div>
+        <div style="display:flex;gap:12px">
+          <button class="btn btn-secondary" onclick="goUploadStep(1)">← Back</button>
+          <button class="btn btn-primary btn-lg" style="flex:1;justify-content:center" onclick="goUploadStep(3)">Continue → Review & Launch</button>
+        </div>
+      </div>
+
+      <div id="upload-panel-3" style="display:none;flex-direction:column;gap:20px">
+        <div class="card" style="background:linear-gradient(135deg,rgba(110,0,255,0.08),rgba(255,0,122,0.05));padding:28px" id="launch-preview"></div>
+        <div style="display:flex;gap:12px">
+          <button class="btn btn-secondary" onclick="goUploadStep(2)">← Back</button>
+          <button class="btn btn-primary btn-lg" style="flex:1;justify-content:center" onclick="launchDrop()">🚀 Launch Drop to Feed</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</div><!-- /page-upload -->
+
+<!-- ── TOAST ──────────────────────────────────────────── -->
+<div class="toast" id="toast">
+  <div class="toast-title" id="toast-title"></div>
+  <div class="toast-msg" id="toast-msg"></div>
+</div>
+
+<script src="app.js"></script>
+<script src="analytics.js"></script>
+</body>
+</html>
