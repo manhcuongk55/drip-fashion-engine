@@ -21,7 +21,13 @@
     <button class="nav-link" id="nav-analytics" onclick="showPage('analytics')">📊 Analytics</button>
     <button class="nav-link" id="nav-upload" onclick="showPage('upload')">⬆️ Upload Drop</button>
   </div>
-  <button class="nav-cta" onclick="showPage('studio')">+ New Drop</button>
+  <div style="display:flex;align-items:center;gap:10px">
+    <div id="erp-status" style="display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:100px;background:rgba(255,255,255,0.04);border:1px solid var(--border);cursor:pointer;font-size:12px" onclick="openSettings()">
+      <span id="erp-dot" style="width:8px;height:8px;border-radius:50%;background:var(--neon-green)"></span>
+      <span id="erp-label" style="color:var(--text-muted)">Demo</span>
+    </div>
+    <button class="nav-cta" onclick="showPage('studio')">+ New Drop</button>
+  </div>
 </nav>
 
 <!-- ── PAGE: TREND RADAR ──────────────────────────────── -->
@@ -535,13 +541,68 @@
   </section>
 </div><!-- /page-upload -->
 
+<!-- ── SETTINGS MODAL ─────────────────────────────────── -->
+<div class="modal-overlay" id="settings-modal">
+  <div class="modal">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px">
+      <h3>⚙️ ERPNext Connection</h3>
+      <button class="btn btn-ghost btn-sm" onclick="closeSettings()" style="font-size:20px">✕</button>
+    </div>
+
+    <!-- Demo mode toggle -->
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:16px;background:rgba(255,255,255,0.03);border-radius:var(--radius-sm);margin-bottom:20px">
+      <div>
+        <div style="font-size:14px;font-weight:600">Demo Mode</div>
+        <div style="font-size:12px;color:var(--text-muted)">Use mock data (no ERPNext needed)</div>
+      </div>
+      <div class="toggle on" id="demo-toggle" onclick="toggleDemo(this)">
+        <div class="toggle-knob"></div>
+      </div>
+    </div>
+
+    <!-- ERPNext URL -->
+    <div style="margin-bottom:16px">
+      <label style="font-size:13px;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px">ERPNext URL</label>
+      <input id="cfg-url" type="text" placeholder="https://your-site.frappe.cloud"
+        style="width:100%;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 16px;color:var(--text-primary);font-family:var(--font-sans);font-size:14px;outline:none"
+        onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'">
+    </div>
+
+    <!-- API Key -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px">
+      <div>
+        <label style="font-size:13px;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px">API Key</label>
+        <input id="cfg-key" type="text" placeholder="your-api-key"
+          style="width:100%;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px;color:var(--text-primary);font-family:var(--font-sans);font-size:13px;outline:none">
+      </div>
+      <div>
+        <label style="font-size:13px;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px">API Secret</label>
+        <input id="cfg-secret" type="password" placeholder="your-api-secret"
+          style="width:100%;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px;color:var(--text-primary);font-family:var(--font-sans);font-size:13px;outline:none">
+      </div>
+    </div>
+
+    <!-- Connection test result -->
+    <div id="conn-result" style="display:none;padding:12px;border-radius:var(--radius-sm);margin-bottom:16px;font-size:13px"></div>
+
+    <!-- Actions -->
+    <div style="display:flex;gap:12px">
+      <button class="btn btn-secondary" style="flex:1;justify-content:center" onclick="testERPConnection()">🔌 Test Connection</button>
+      <button class="btn btn-primary" style="flex:1;justify-content:center" onclick="saveERPSettings()">💾 Save & Apply</button>
+    </div>
+  </div>
+</div>
+
 <!-- ── TOAST ──────────────────────────────────────────── -->
 <div class="toast" id="toast">
   <div class="toast-title" id="toast-title"></div>
   <div class="toast-msg" id="toast-msg"></div>
 </div>
 
+<script src="erpnext-config.js"></script>
+<script src="erpnext-api.js"></script>
 <script src="app.js"></script>
 <script src="analytics.js"></script>
+<script src="erpnext-ui.js"></script>
 </body>
 </html>
