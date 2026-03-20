@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>DRIP — Pitch Deck 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#08090d;--surface:#111318;--card:#1a1d26;
+  --accent:#7c5cfc;--accent2:#fc5c7d;--gold:#ffd166;
+  --text:#f0f0f8;--muted:#6b7280;
+  --grad:linear-gradient(135deg,#7c5cfc,#fc5c7d);
+}
+html,body{width:100%;height:100%;overflow:hidden;font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);}
+/* DECK */
+.deck{width:100%;height:100%;position:relative;}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:60px;opacity:0;pointer-events:none;transition:opacity .5s,transform .5s;transform:translateY(30px);}
+.slide.active{opacity:1;pointer-events:all;transform:translateY(0);}
+/* NAV */
+.nav{position:fixed;bottom:32px;left:50%;transform:translateX(-50%);display:flex;gap:12px;align-items:center;z-index:100;background:rgba(17,19,24,.8);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.08);border-radius:50px;padding:10px 24px;}
+.nav button{background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer;padding:4px 8px;transition:color .2s;}
+.nav button:hover{color:var(--text);}
+.nav .dots{display:flex;gap:8px;}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--muted);cursor:pointer;transition:all .3s;}
+.dot.active{background:var(--accent);transform:scale(1.3);}
+.slide-num{font-size:12px;color:var(--muted);min-width:40px;text-align:center;}
+/* REUSABLE */
+.badge{display:inline-block;padding:6px 16px;border-radius:20px;font-size:12px;font-weight:600;background:rgba(124,92,252,.15);color:var(--accent);border:1px solid rgba(124,92,252,.3);letter-spacing:.05em;text-transform:uppercase;}
+h1{font-size:clamp(36px,5vw,72px);font-weight:900;line-height:1.05;}
+h2{font-size:clamp(28px,3.5vw,48px);font-weight:800;}
+h3{font-size:clamp(18px,2vw,26px);font-weight:700;}
+.grad-text{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.muted{color:var(--muted);}
+table{width:100%;border-collapse:collapse;}
+th{text-align:left;color:var(--muted);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.06);}
+td{padding:10px 14px;font-size:14px;border-bottom:1px solid rgba(255,255,255,.04);}
+tr:last-child td{border-bottom:none;}
+.card{background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:24px;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px;width:100%;}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;width:100%;}
+.tag{display:inline-block;padding:3px 10px;border-radius:10px;font-size:11px;font-weight:600;background:rgba(124,92,252,.15);color:var(--accent);}
+
+/* SLIDE 1 — COVER */
+.s1-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 60%,rgba(124,92,252,.22) 0%,transparent 70%),radial-gradient(ellipse 50% 40% at 70% 20%,rgba(252,92,125,.12) 0%,transparent 60%);pointer-events:none;}
+.logo-big{font-size:96px;line-height:1;}
+.kicker{font-size:clamp(14px,1.5vw,20px);color:var(--muted);margin-top:8px;text-align:center;}
+.raising-pill{margin-top:32px;display:flex;gap:16px;align-items:center;}
+.pill{padding:10px 24px;border-radius:30px;font-size:14px;font-weight:700;}
+.pill-purple{background:var(--grad);color:#fff;}
+.pill-outline{border:1px solid rgba(255,255,255,.15);color:var(--text);}
+
+/* SLIDE 2 — PROBLEM */
+.vs-table td:nth-child(2){color:#fc5c7d;}
+.vs-table td:nth-child(3){color:#7c5cfc;}
+.vs-table th:nth-child(2){color:#fc5c7d;}
+.vs-table th:nth-child(3){color:#7c5cfc;}
+.big-stat{font-size:clamp(40px,5vw,64px);font-weight:900;}
+
+/* SLIDE 3 — SOLUTION */
+.flow{display:flex;align-items:center;gap:0;width:100%;overflow:hidden;}
+.flow-step{flex:1;text-align:center;padding:16px 8px;background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:12px;font-size:13px;font-weight:600;}
+.flow-arrow{color:var(--accent);font-size:20px;padding:0 6px;flex-shrink:0;}
+
+/* SLIDE 5 — BIZ MODEL */
+.highlight-row td{color:var(--gold);font-weight:700;}
+
+/* SLIDE 6 — MARKET */
+.market-bar{height:10px;border-radius:6px;background:var(--grad);margin:6px 0;}
+
+/* SLIDE 7 — TRACTION */
+.milestone{display:flex;gap:16px;align-items:flex-start;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.04);}
+.m-dot{width:12px;height:12px;border-radius:50%;background:var(--grad);flex-shrink:0;margin-top:4px;}
+.m-done .m-dot{background:#34d399;}
+.m-done .m-title{color:#34d399;}
+
+/* SLIDE 8 — TEAM ASK */
+.fund-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.04);}
+.fund-bar-wrap{width:60%;background:rgba(255,255,255,.06);border-radius:6px;height:8px;}
+.fund-bar{height:8px;border-radius:6px;background:var(--grad);}
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+<!-- SLIDE 1: COVER -->
+<div class="slide active" id="s1">
+  <div class="s1-bg"></div>
+  <div class="badge">Seed 2026</div>
+  <div class="logo-big" style="margin-top:20px">💧</div>
+  <h1 style="margin-top:12px;text-align:center"><span class="grad-text">DRIP</span></h1>
+  <p class="kicker">AI Fashion Trend Engine<br/>From TikTok Viral → Vietnam Factory in <strong style="color:#fff">48 Hours</strong></p>
+  <div class="raising-pill">
+    <span class="pill pill-purple">Raising $500K Seed</span>
+    <span class="pill pill-outline">MVP Live</span>
+    <span class="pill pill-outline">Vietnam-first</span>
+  </div>
+  <p style="margin-top:48px;font-size:13px;color:var(--muted);font-style:italic">"SHEIN sells clothes. DRIP sells trends first."</p>
+</div>
+
+<!-- SLIDE 2: PROBLEM -->
+<div class="slide" id="s2">
+  <div style="width:100%;max-width:900px">
+    <div class="badge">01 · Problem</div>
+    <h2 style="margin-top:16px">The fashion industry is <span class="grad-text">broken</span> in two ways</h2>
+    <div class="card" style="margin-top:28px">
+      <table class="vs-table">
+        <thead>
+          <tr><th>Pain Point</th><th>Fast Fashion (SHEIN)</th><th>Vietnam Brands</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Speed to market</td><td>7 days (China)</td><td>90–180 days ❌</td></tr>
+          <tr><td>Min order qty</td><td>500–1,000 pcs</td><td>No micro-batch ❌</td></tr>
+          <tr><td>Trend data</td><td>Scraped web</td><td>Manual guessing ❌</td></tr>
+          <tr><td>Creator layer</td><td>None</td><td>None ❌</td></tr>
+          <tr><td>Local identity</td><td>Zero</td><td>Untapped ❌</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-top:24px;display:flex;gap:24px;">
+      <div class="card" style="flex:1;text-align:center">
+        <div class="big-stat grad-text">$300M</div>
+        <p class="muted" style="font-size:13px;margin-top:4px">Lost/year by Vietnamese brands<br/>missing trend windows</p>
+      </div>
+      <div class="card" style="flex:1;text-align:center">
+        <div class="big-stat grad-text">200+</div>
+        <p class="muted" style="font-size:13px;margin-top:4px">Vietnam factories with<br/>no real-time demand signal</p>
+      </div>
+      <div class="card" style="flex:1;text-align:center">
+        <div class="big-stat grad-text">60M</div>
+        <p class="muted" style="font-size:13px;margin-top:4px">TikTok users in Vietnam<br/>with no local fashion platform</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 3: SOLUTION -->
+<div class="slide" id="s3">
+  <div style="width:100%;max-width:900px">
+    <div class="badge">02 · Solution</div>
+    <h2 style="margin-top:16px">AI-powered trend detection → <span class="grad-text">factory-ready</span> in 48h</h2>
+    <div class="flow" style="margin-top:32px">
+      <div class="flow-step">📱<br/>TikTok / IG<br/>Pinterest</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">🎯<br/>AI Trend<br/>Radar</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">✨<br/>Design<br/>Studio</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">🏭<br/>Factory<br/>Network</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">📦<br/>Order<br/>Tracker</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">🌟<br/>Creator<br/>Feed</div>
+    </div>
+    <div class="grid3" style="margin-top:24px">
+      <div class="card">
+        <div style="font-size:28px">🎯</div>
+        <h3 style="margin-top:8px;font-size:16px">Trend Radar</h3>
+        <p class="muted" style="font-size:13px;margin-top:6px">Scans TikTok every 60 sec. AI scores 2,000–10,000 signals/day by velocity &amp; fit.</p>
+      </div>
+      <div class="card">
+        <div style="font-size:28px">✨</div>
+        <h3 style="margin-top:8px;font-size:16px">Design Studio</h3>
+        <p class="muted" style="font-size:13px;margin-top:6px">Paste video URL → AI extracts look, fabric, palette → production brief in seconds.</p>
+      </div>
+      <div class="card">
+        <div style="font-size:28px">🏭</div>
+        <h3 style="margin-top:8px;font-size:16px">Factory Network</h3>
+        <p class="muted" style="font-size:13px;margin-top:6px">127 verified Vietnam factories. Real-time capacity. Micro-batch: <strong>50 pcs min</strong>.</p>
+      </div>
+      <div class="card">
+        <div style="font-size:28px">📦</div>
+        <h3 style="margin-top:8px;font-size:16px">Order Tracker</h3>
+        <p class="muted" style="font-size:13px;margin-top:6px">Live production tracking. Factory cam, QC reports, priority notifications.</p>
+      </div>
+      <div class="card">
+        <div style="font-size:28px">🌟</div>
+        <h3 style="margin-top:8px;font-size:16px">Creator Feed</h3>
+        <p class="muted" style="font-size:13px;margin-top:6px">Influencers sell directly to followers. TikTok-style commerce with live counters.</p>
+      </div>
+      <div class="card">
+        <div style="font-size:28px">📊</div>
+        <h3 style="margin-top:8px;font-size:16px">Analytics</h3>
+        <p class="muted" style="font-size:13px;margin-top:6px">Revenue, sell-through, AI accuracy. TikTok drives 54% of traffic.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 4: MOAT -->
+<div class="slide" id="s4">
+  <div style="width:100%;max-width:900px">
+    <div class="badge">03 · Why DRIP Wins</div>
+    <h2 style="margin-top:16px">Moat: <span class="grad-text">The Data Flywheel</span></h2>
+    <div class="card" style="margin-top:28px">
+      <table>
+        <thead><tr><th>Dimension</th><th>SHEIN</th><th>Shopee/Lazada</th><th style="color:var(--accent)">DRIP</th></tr></thead>
+        <tbody>
+          <tr><td>Speed</td><td class="muted">7 days</td><td class="muted">30–60 days</td><td style="color:#34d399;font-weight:700">⚡ 48 hours</td></tr>
+          <tr><td>Min order</td><td class="muted">500+ pcs</td><td class="muted">100+ pcs</td><td style="color:#34d399;font-weight:700">✅ 50 pcs</td></tr>
+          <tr><td>Data source</td><td class="muted">Scraped web</td><td class="muted">Manual</td><td style="color:#34d399;font-weight:700">🤖 Live video AI</td></tr>
+          <tr><td>Creator layer</td><td class="muted">None</td><td class="muted">Marketplace</td><td style="color:#34d399;font-weight:700">🌟 Core engine</td></tr>
+          <tr><td>Local identity</td><td class="muted">Zero</td><td class="muted">Neutral</td><td style="color:#34d399;font-weight:700">🇻🇳 Vietnamese-first</td></tr>
+          <tr><td>Sustainability</td><td class="muted">Overproduction</td><td class="muted">N/A</td><td style="color:#34d399;font-weight:700">♻️ Test-first drops</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="grid2" style="margin-top:20px">
+      <div class="card" style="border-color:rgba(124,92,252,.3)">
+        <div style="font-size:22px">🔄</div>
+        <h3 style="margin-top:8px;font-size:15px">Data Flywheel</h3>
+        <p class="muted" style="font-size:13px;margin-top:6px">Every drop trains the AI better. After <strong style="color:#fff">10,000 drops</strong>, no competitor can replicate the model. The moat compounds.</p>
+      </div>
+      <div class="card" style="border-color:rgba(252,92,125,.3)">
+        <div style="font-size:22px">🤖</div>
+        <h3 style="margin-top:8px;font-size:15px">OpenClaw AI Integration</h3>
+        <p class="muted" style="font-size:13px;margin-top:6px">Control DRIP via <strong style="color:#fff">Telegram / WhatsApp / Zalo</strong> in natural language. Order factories, check trends, manage creators — chat-natively.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 5: BIZ MODEL -->
+<div class="slide" id="s5">
+  <div style="width:100%;max-width:900px">
+    <div class="badge">04 · Business Model</div>
+    <h2 style="margin-top:16px">Multiple revenue streams, <span class="grad-text">all compounding</span></h2>
+    <div class="card" style="margin-top:28px">
+      <table>
+        <thead><tr><th>Revenue Stream</th><th>Mechanism</th><th>Margin</th></tr></thead>
+        <tbody>
+          <tr class="highlight-row"><td>💰 Marketplace Commission</td><td>15–25% per drop transaction</td><td>Primary</td></tr>
+          <tr><td>🔧 Factory SaaS</td><td>Monthly API access for factories</td><td>Recurring</td></tr>
+          <tr><td>⭐ Creator Premium</td><td>Analytics, priority slots, rush</td><td>Subscription</td></tr>
+          <tr><td>🏷️ Brand Licensing</td><td>White-label trend engine</td><td>Enterprise</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-top:22px">
+      <p style="font-size:13px;color:var(--muted);margin-bottom:12px">Unit economics — 100-piece drop @ 350K VND/piece</p>
+      <div class="grid3">
+        <div class="card" style="text-align:center">
+          <div style="font-size:28px;font-weight:900;color:var(--gold)">35M</div>
+          <div class="muted" style="font-size:12px;margin-top:4px">VND GMV per drop</div>
+        </div>
+        <div class="card" style="text-align:center;border-color:rgba(124,92,252,.3)">
+          <div style="font-size:28px;font-weight:900;" class="grad-text">7M</div>
+          <div class="muted" style="font-size:12px;margin-top:4px">VND DRIP revenue (20%)</div>
+        </div>
+        <div class="card" style="text-align:center">
+          <div style="font-size:28px;font-weight:900;color:#34d399">&lt;3</div>
+          <div class="muted" style="font-size:12px;margin-top:4px">Drops to recover CAC</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 6: MARKET -->
+<div class="slide" id="s6">
+  <div style="width:100%;max-width:900px">
+    <div class="badge">05 · Market</div>
+    <h2 style="margin-top:16px">Massive market, <span class="grad-text">Vietnam is the beachhead</span></h2>
+    <div class="grid2" style="margin-top:28px">
+      <div>
+        <div class="card" style="margin-bottom:14px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+            <span style="font-size:13px">Vietnam e-com fashion</span><span style="font-weight:700;color:var(--accent)">$1.2B</span>
+          </div>
+          <div class="market-bar" style="width:30%"></div>
+          <span class="muted" style="font-size:11px">Growing 28% YoY · DRIP TAM</span>
+        </div>
+        <div class="card" style="margin-bottom:14px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+            <span style="font-size:13px">SEA fashion e-commerce</span><span style="font-weight:700;color:var(--accent)">$14B</span>
+          </div>
+          <div class="market-bar" style="width:60%"></div>
+          <span class="muted" style="font-size:11px">By 2028 · Phase 2 expansion</span>
+        </div>
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+            <span style="font-size:13px">Global social commerce</span><span style="font-weight:700;color:var(--gold)">$1.3T</span>
+          </div>
+          <div class="market-bar" style="width:100%"></div>
+          <span class="muted" style="font-size:11px">By 2030 · Long-term vision</span>
+        </div>
+      </div>
+      <div>
+        <div class="card" style="height:100%">
+          <h3 style="font-size:15px;margin-bottom:16px">🇻🇳 Vietnam Tailwinds</h3>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div style="display:flex;gap:10px;align-items:start"><span style="font-size:18px">🏭</span><div><strong>#3</strong> global textile export capacity<br/><span class="muted" style="font-size:12px">200+ factories ready to scale</span></div></div>
+            <div style="display:flex;gap:10px;align-items:start"><span style="font-size:18px">👥</span><div><strong>70M</strong> population, median age <strong>31</strong><br/><span class="muted" style="font-size:12px">Fashion-hungry demographic</span></div></div>
+            <div style="display:flex;gap:10px;align-items:start"><span style="font-size:18px">📱</span><div><strong>60M+</strong> TikTok active users<br/><span class="muted" style="font-size:12px">#2 globally per capita</span></div></div>
+            <div style="display:flex;gap:10px;align-items:start"><span style="font-size:18px">🚀</span><div>Creator economy <strong>fastest-growing</strong> in SEA<br/><span class="muted" style="font-size:12px">No dominant local platform yet</span></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:16px;text-align:center;border-color:rgba(124,92,252,.3)">
+      <p style="font-size:14px">Capture <strong style="color:var(--accent)">5%</strong> of Vietnam fashion e-com = <strong style="color:var(--gold);font-size:20px">$60M ARR</strong></p>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 7: TRACTION -->
+<div class="slide" id="s7">
+  <div style="width:100%;max-width:900px">
+    <div class="badge">06 · Traction & Roadmap</div>
+    <h2 style="margin-top:16px">Clear path to <span class="grad-text">$50M GMV</span></h2>
+    <div class="grid2" style="margin-top:28px;align-items:start">
+      <div class="card">
+        <h3 style="font-size:15px;margin-bottom:16px">🗺️ Milestones</h3>
+        <div class="milestone m-done">
+          <div class="m-dot"></div>
+          <div><div class="m-title" style="font-weight:700;font-size:14px">✅ Platform MVP Live</div><div class="muted" style="font-size:12px">AI Trend Radar · Factory Network · ERPNext Bridge</div></div>
+        </div>
+        <div class="milestone">
+          <div class="m-dot"></div>
+          <div><div style="font-weight:700;font-size:14px">Q2 2026 — MVP Launch</div><div class="muted" style="font-size:12px">50 creators · 100 drops</div></div>
+        </div>
+        <div class="milestone">
+          <div class="m-dot"></div>
+          <div><div style="font-weight:700;font-size:14px">Q4 2026 — PMF</div><div class="muted" style="font-size:12px">500 creators · $500K GMV</div></div>
+        </div>
+        <div class="milestone">
+          <div class="m-dot"></div>
+          <div><div style="font-weight:700;font-size:14px">Q2 2027 — Series A</div><div class="muted" style="font-size:12px">5,000 creators · $5M GMV</div></div>
+        </div>
+        <div class="milestone">
+          <div class="m-dot"></div>
+          <div><div style="font-weight:700;font-size:14px">2028 — SEA Expansion</div><div class="muted" style="font-size:12px">Thailand · Indonesia · Malaysia</div></div>
+        </div>
+        <div class="milestone" style="border-bottom:none">
+          <div class="m-dot" style="background:var(--gold)"></div>
+          <div><div style="font-weight:700;font-size:14px;color:var(--gold)">2030 — 🦄 Unicorn</div><div class="muted" style="font-size:12px">$1B+ ARR · FashionGPT</div></div>
+        </div>
+      </div>
+      <div>
+        <div class="card" style="margin-bottom:16px">
+          <h3 style="font-size:15px;margin-bottom:12px">⚙️ Tech Stack</h3>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <span class="tag">Vanilla JS</span><span class="tag">GPT-4V</span><span class="tag">Gemini Vision</span>
+            <span class="tag">TikTok API</span><span class="tag">Node.js</span><span class="tag">ERPNext</span>
+            <span class="tag">PostgreSQL</span><span class="tag">Redis</span><span class="tag">Vercel</span>
+            <span class="tag">OpenClaw</span><span class="tag">Telegram</span><span class="tag">Zalo</span>
+          </div>
+        </div>
+        <div class="card" style="border-color:rgba(124,92,252,.3)">
+          <h3 style="font-size:15px;margin-bottom:12px">🌏 Vision 2030</h3>
+          <p style="font-size:13px;color:var(--muted);line-height:1.7"><strong style="color:#fff">FashionGPT</strong> — AI that designs for <em>you</em> specifically (body, personality, event, budget), produces on-demand, ships in 48h.<br/><br/>The end of mass fashion as we know it.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 8: THE ASK -->
+<div class="slide" id="s8">
+  <div style="width:100%;max-width:900px">
+    <div class="badge">07 · The Ask</div>
+    <h2 style="margin-top:16px">Raising <span class="grad-text">$500K Seed</span> — $1M GMV in 12 months</h2>
+    <div class="grid2" style="margin-top:28px">
+      <div class="card">
+        <h3 style="font-size:15px;margin-bottom:16px">💰 Use of Funds</h3>
+        <div class="fund-row"><span style="font-size:14px">🤖 AI Engine</span><div class="fund-bar-wrap"><div class="fund-bar" style="width:80%"></div></div><span style="font-size:13px;color:var(--accent)">$150K</span></div>
+        <div class="fund-row"><span style="font-size:14px">🏭 Factory Network</span><div class="fund-bar-wrap"><div class="fund-bar" style="width:64%"></div></div><span style="font-size:13px;color:var(--accent)">$120K</span></div>
+        <div class="fund-row"><span style="font-size:14px">🌟 Creator Acquisition</span><div class="fund-bar-wrap"><div class="fund-bar" style="width:53%"></div></div><span style="font-size:13px;color:var(--accent)">$100K</span></div>
+        <div class="fund-row"><span style="font-size:14px">👨‍💻 Product & Engineering</span><div class="fund-bar-wrap"><div class="fund-bar" style="width:53%"></div></div><span style="font-size:13px;color:var(--accent)">$100K</span></div>
+        <div class="fund-row" style="border-bottom:none"><span style="font-size:14px">📣 Marketing & GTM</span><div class="fund-bar-wrap"><div class="fund-bar" style="width:16%"></div></div><span style="font-size:13px;color:var(--accent)">$30K</span></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div class="card" style="border-color:rgba(124,92,252,.3)">
+          <h3 style="font-size:15px;margin-bottom:8px">🎯 12-Month Targets</h3>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;justify-content:space-between"><span class="muted" style="font-size:13px">GMV</span><strong style="color:var(--gold)">$1M+</strong></div>
+            <div style="display:flex;justify-content:space-between"><span class="muted" style="font-size:13px">Creators</span><strong>200 exclusive</strong></div>
+            <div style="display:flex;justify-content:space-between"><span class="muted" style="font-size:13px">Factory partners</span><strong>20 onboarded</strong></div>
+            <div style="display:flex;justify-content:space-between"><span class="muted" style="font-size:13px">Total drops</span><strong>1,000+</strong></div>
+          </div>
+        </div>
+        <div class="card" style="text-align:center;background:linear-gradient(135deg,rgba(124,92,252,.15),rgba(252,92,125,.1))">
+          <div style="font-size:40px">🪷</div>
+          <p style="font-size:16px;font-weight:700;margin-top:8px">Made in Vietnam</p>
+          <p style="font-size:13px;color:var(--muted);margin-top:4px">Powered by AI · Built to go global</p>
+          <p style="font-size:13px;margin-top:12px"><a href="mailto:hello@drip.vn" style="color:var(--accent)">hello@drip.vn</a></p>
+          <a href="https://drip-fashion-engine.vercel.app" target="_blank" style="display:inline-block;margin-top:12px;padding:10px 24px;background:var(--grad);color:#fff;border-radius:24px;font-size:13px;font-weight:700;text-decoration:none">View Live Demo →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /deck -->
+
+<!-- NAV -->
+<nav class="nav">
+  <button id="prev" onclick="go(-1)">‹</button>
+  <div class="dots" id="dots"></div>
+  <button id="next" onclick="go(1)">›</button>
+  <span class="slide-num" id="slideNum">1 / 8</span>
+</nav>
+
+<script>
+const slides=document.querySelectorAll('.slide');
+const dotsEl=document.getElementById('dots');
+const numEl=document.getElementById('slideNum');
+let cur=0;
+slides.forEach((_,i)=>{
+  const d=document.createElement('div');
+  d.className='dot'+(i===0?' active':'');
+  d.onclick=()=>goTo(i);
+  dotsEl.appendChild(d);
+});
+function goTo(n){
+  slides[cur].classList.remove('active');
+  dotsEl.children[cur].classList.remove('active');
+  cur=(n+slides.length)%slides.length;
+  slides[cur].classList.add('active');
+  dotsEl.children[cur].classList.add('active');
+  numEl.textContent=(cur+1)+' / '+slides.length;
+}
+function go(d){goTo(cur+d);}
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key==='ArrowDown')go(1);
+  if(e.key==='ArrowLeft'||e.key==='ArrowUp')go(-1);
+});
+</script>
+</body>
+</html>
