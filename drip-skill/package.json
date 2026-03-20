@@ -1,0 +1,16 @@
+{
+  "name": "drip-openclaw-skill",
+  "version": "1.0.0",
+  "description": "DRIP × OpenClaw — AI Fashion Assistant Skill. Exposes DRIP's ERPNext-backed actors (trends, factories, orders, analytics, creator feed) as conversational tools for the OpenClaw agent gateway.",
+  "main": "tools.js",
+  "scripts": {
+    "start": "node tools.js",
+    "dev": "DRIP_DEMO_MODE=true node tools.js",
+    "live": "DRIP_DEMO_MODE=false node tools.js"
+  },
+  "keywords": ["openclaw", "drip", "erpnext", "fashion", "ai", "skill"],
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
